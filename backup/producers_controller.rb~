@@ -1,0 +1,69 @@
+class ProducersController < ApplicationController
+  # skip_before_action :verify_authenticity_token
+  before_filter :check_api_key, only: [:create, :update ]
+
+  def index
+    @producers = Producer.all.collect{|producer| {
+      "id" => producer.id, 
+      "name" => producer.name, 
+      "description" => producer.description, 
+      "offer_id" =>  producer.offer_id}}
+    return_json(@producers, 200)
+  end
+
+  def create
+    producer = Producer.new(producer_params)
+    producer.validate_offer(params[:offer_id]) if params[:offer_id]
+    if producer.errors.any?
+      return_json({errors: producer.errors.full_messages}, 400)
+    elsif producer.save
+      return_json(producer, 201)
+    else
+      return_json({errors: "Unable to save producer."}, 401)
+    end
+  end
+
+  def show
+    @producer = uuid_filter
+    if @producer
+      @status = 200
+      @body = @producer.permission_json
+    else
+      @status = 404
+      @body = {errors: "Producer not found."}
+    end
+    return_json(@body, @status)
+  end
+
+  def update
+    @producer = uuid_filter
+    if @producer
+      @producer.filtered_update(producer_params)
+      if @producer.errors.full_messages.count > 0
+        message = {errors: @producer.errors.full_messages}
+        status = 400
+      else
+        message = @producer.reload
+        status = 200
+      end
+    else 
+      message = {errors: "Producer not found"}
+      status = 400
+    end
+    return_json(message, status)
+  end
+
+  private
+
+  def producer_params
+    params.permit(:name, :description, :offer_id, :id, :uuid)
+  end
+
+  def create_transition(params)
+    Transition.create_new_transition(params)
+  end
+
+  def uuid_filter
+    producer = ((Producer.where(uuid: params[:id]).first rescue ActiveRecord::StatementInvalid) == ActiveRecord::StatementInvalid) ? nil : Producer.where(uuid: params[:id]).first
+  end
+end

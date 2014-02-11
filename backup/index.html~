@@ -1,0 +1,61 @@
+<div id="map-canvas">
+
+<header id="navbar" role="banner" class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+	  <div class="container">
+	<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+	    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </a>
+
+	    <a class="logo" href="/" title="Home"><img src="/assets/images/logo.png"></a>
+
+	    <div class="nav-collapse collapse">
+	      <nav role="navigation"> 
+	        <div class="region region-navigation">
+	          <section id="block-system-main-menu" class="block block-system block-menu">
+	            <ul class="menu nav">
+	              <li class="first leaf"><a href="/" title="" class="active">Job Locator</a></li>
+	              <li class="leaf"><a href="#" title="">Our Programs</a></li>
+	              <li class="leaf"><a href="#" title="">Our Mission</a></li>
+	              <li class="leaf"><a href="#" title="">Who we Are</a></li>
+	              <li class="last leaf"><a href="#" title="">contact Us</a></li>
+	            </ul>  
+	          </section> <!-- /.block -->
+	        </div>
+	      </nav>
+	  </div>
+	</div>
+  </div>
+</header>
+
+</div>
+
+
+<script type=text/javascript> 
+var centerHere = null; 
+if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(function (position) {
+         centerHere = [position.coords.latitude, position.coords.longitude];
+     });
+ }
+
+var map = L.map('map-canvas').setView(centerHere ? centerHere : [37.812581 , -122.266041], 16);
+
+L.tileLayer('http://{s}.tile.cloudmade.com/78bc66dbe07f4b8593aece9e8864efff/998/256/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+    maxZoom: 18
+}).addTo(map);
+
+var foursquareData;
+
+$.ajax({ 
+  url: 'https://api.foursquare.com/v2/venues/explore?ll=' + centerHere[0] + ',' + centerHere[1] + '&limit=25', 
+  dataType: json
+  
+});
+
+</script> 
+ 

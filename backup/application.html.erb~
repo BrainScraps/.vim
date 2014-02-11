@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SecondChance</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "bootstrap.min.js" %>
+  <%= stylesheet_link_tag    "application", "http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" %>
+  <%= stylesheet_link_tag    "application", "bootstrap.css" %>
+  <%= stylesheet_link_tag    "application", "style.css" %>
+  <%= stylesheet_link_tag    "application", "bootstrap-responsive.css" %>
+  <%= stylesheet_link_tag    "application", "layout_979.css" %>
+  <link rel="stylesheet" type="text/css" href="assets/style.css" >
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

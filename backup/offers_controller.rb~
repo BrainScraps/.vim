@@ -1,0 +1,87 @@
+class OffersController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  before_filter 
+  def show
+    offer_id = params[:id]
+    offer = Offer.where(id: offer_id).first
+    
+    if offer
+      offer = display_params(params[:id])
+      return_json(offer, 200)
+    elsif params[:producer_id]
+      find_producer = uuid_filter
+      if find_producer.nil?
+        return_json({errors: "Producer ##{params[:producer_id]} is invalid"}, 400)
+      elsif find_producer && find_producer.offer
+        offer_id = find_producer.offer.id
+        return_json(display_params(offer_id), 200)
+      end
+    else 
+      return_json({errors: "Offer not found: ##{params[:id]}" }, 400)
+    end
+  end
+
+  def update
+    offer_id = params[:id]
+    offer = Offer.where(id: offer_id).first
+    offer.check_params(params) if offer
+    
+    if offer_id && !offer.nil?
+      if offer.errors.any?
+        return_json({errors: offer.errors.full_messages}, 400)
+      elsif offer.update(offer_params)
+        return_json(display_params(offer.id), 200)
+      else
+        return_json({errors: "Offer ##{offer_id} could not be updated"}, 400)
+      end
+    else
+      return_json({errors: "Offer ##{offer_id} does not exist"}, 404)
+    end
+  end
+
+  def create
+    offer = Offer.new(offer_params.slice(:name, :price, :assortment_id, :description, :duration))
+    offer.check_params(params)
+
+    if offer.errors.any?
+      @message = {errors: offer.errors.full_messages}
+      @status = 400
+    elsif offer.save
+      @message = {offer_id: offer.id}
+      @status  = 200
+    else
+      @message = {errors: "Offer could not be created, please check the params provided #{params.to_json}"}
+      @status = 400
+    end
+    return_json(@message, @status)
+  end
+
+  def current
+    offers = Offer.current_offers
+    if offers.empty?
+      return_json({errors: "There are no current offers"}, 400)
+    else
+      return_json(Offer.current_offers, 200)
+    end
+  end
+
+  private
+
+  def display_params(offer_id)
+    o = Offer.where(id: offer_id).first
+    if o
+      features = o.features.map(&:name)
+      offer = o.slice(:id, :name, :description, :start_date, :end_date, :price, :assortment_id, :duration)
+      offer.merge("features" => features)
+    end
+  end
+
+  def offer_params
+    params.permit(:name, :price, :start_date, :end_date, :duration, :assortment_id, :description)
+  end
+
+  def uuid_filter
+    producer = ((Producer.where(uuid: params[:producer_id]).first rescue ActiveRecord::StatementInvalid) == ActiveRecord::StatementInvalid) ? nil : Producer.where(uuid: params[:producer_id]).first
+  end
+
+end

@@ -1,0 +1,174 @@
+require 'spec_helper'
+
+describe 'rootdomain/assortments' do
+  before(:all) do
+    create_instances(2, :offer)
+    create_instances(1, :producer)
+    create_instances(2, :api_key)
+    @auth_header = "Token token=#{@apikey_1.access_token}"
+  end
+
+  describe 'GET /offers/[offer_id]/' do
+    it "returns the offers details" do
+      get "/offers/#{@offer_1.id}"
+      response_true(200)
+      expect(json.keys).not_to include("created_at", "updated_at")
+      expect(json["id"]).to eq @offer_1.id
+      expect(json["name"]).to eq @offer_1.name
+      expect(json["assortment_id"]).to eq @offer_1.assortment_id
+      expect(json.count).to eq 9
+    end
+  end
+
+  describe 'GET /offers?producer_id=' do
+    it "returns the details of the producer's offer" do
+      get "/offers?producer_id=#{@producer_1.uuid}"
+      expect(@producer_1.offer_id).to eq @producer_1.offer.id
+      response_true(200)
+      expect(json["id"]).to eq @producer_1.offer_id
+    end
+
+    it "returns a 400 if invalid producer_id is provided" do
+      get "/offers?producer_id=1234"
+      response_true(400)
+      expect(json["errors"]).to eq "Producer #1234 is invalid"
+    end
+  end
+
+  describe 'GET /offers/current' do
+    it "should return all offers that have not ended" do
+      get "/offers/current"
+      expect(response.status).to eq 200
+    end
+
+    it "should return an error if no current offers found" do
+      DatabaseCleaner.clean
+      offer = create(:offer, :end_date => 2.months.ago)
+      get "/offers/current"
+      expect(response.status).to eq 400
+      expect(json["errors"]).to eq "There are no current offers"
+    end
+  end
+
+  describe 'PATCH /offers/[offer_id]?[params]' do
+    it "should update the offers with valid params" do
+      expect(@offer_2.price).to eq 2
+      patch "offers/#{@offer_2.id}", {
+        name: "Updated",
+        description: "The updated offer",
+        start_date: Date.today,
+        end_date: Date.today + 10,
+        price: 10,
+        assortment_id: Assortment.last.id,
+        duration: 35
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(200)
+      expect(@offer_2.reload.name).to eq "Updated"
+      expect(@offer_2.reload.price).to eq 10
+      expect(@offer_2.reload.duration).to eq 35
+      expect(json["name"]).to eq "Updated"
+      expect(json["price"]).to eq 10
+      expect(json).to_not include("created_at")
+      expect(json).to_not include("updated_at")
+    end
+
+    it "should return a 400 error with invalid params" do
+      patch "offers/#{@offer_2.id}", {
+        price: "this is invalid",
+        name: "test if this updates"
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(400)
+      expect(json["errors"]).to eq "Offer ##{@offer_2.id} could not be updated"
+    end
+
+    it "should return a 400 error with invalid assortment_id" do
+      patch "offers/#{@offer_2.id}", {
+        assortment_id: 123445667
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(400)
+      expect(json["errors"]).to include "Assortment #123445667 does not exist"
+    end
+
+    it "should return a 404 error if offer id does not exist" do
+      patch "offers/1234", {
+        name: "Updated",
+        description: "The updated offer",
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(404)
+      expect(json["errors"]).to eq "Offer #1234 does not exist"
+    end
+
+    it 'should throw an error if invalid params are provided' do
+      patch "offers/#{@offer_2.id}", {
+        name: "New Offer",
+        start_date: "what is today?",
+        end_date: "01-02-2013"
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(400)
+      expect(json["errors"]).to include "dates must be a valid date-time ex. 01-02-2013"
+    end
+  end
+
+  describe 'POST /offers?[params]' do
+    it 'should create a new offer with duration' do
+      post "offers/", {
+        name: "New Offer",
+        description: "The new offer",
+        start_date: Date.today,
+        end_date: Date.today + 10,
+        price: 5,
+        assortment_id: Assortment.last.id,
+        duration: 30
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(200)
+      expect(json["offer_id"]).to eq Offer.last.id
+      expect(Offer.find(json["offer_id"]).duration).to eq 30
+    end
+
+    it 'should create a new offer without duration' do
+      post "offers/", {
+        name: "New Offer",
+        description: "The new offer",
+        start_date: Date.today,
+        end_date: Date.today + 10,
+        price: 5,
+        assortment_id: Assortment.last.id
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(200)
+      expect(json["offer_id"]).to eq Offer.last.id
+    end
+
+    it "should return a 400 error with invalid assortment_id" do
+      post "offers/", {
+        name: "New Offer",
+        description: "With invalid assortment",
+        price: 5,
+        assortment_id: 123445667
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(400)
+      expect(json["errors"]).to include "Assortment #123445667 does not exist"
+    end
+
+    it 'should throw an error if invalid params are provided' do
+      post "offers/", {
+        name: "New Offer",
+        start_date: "what is today?",
+        end_date: "01-02-2013"
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(400)
+      expect(json["errors"]).to include "dates must be a valid date-time ex. 01-02-2013"
+    end
+
+    it 'should throw an error if required params not provided' do
+      post "offers/", {
+        start_date: Date.today + 5
+      }, { "HTTP_AUTHORIZATION" => @auth_header }
+      response_true(400)
+      expect(json["errors"]).to include "Offer could not be created, please check the params provided {\"start_date\":\"#{Date.today + 5}\",\"controller\":\"offers\",\"action\":\"create\"}"
+    end
+  end
+
+  def response_true(status)
+    expect(response.status).to eq status
+  end
+end

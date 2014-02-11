@@ -1,0 +1,75 @@
+class AssortmentsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
+  def index
+    @assortment = {}
+    Assortment.all.includes(:features).each do |assortment| 
+      features = assortment.features.map(&:name)
+      @assortment[assortment.id] = {
+        name: assortment.name,
+        description: assortment.description, 
+        features: features
+      }
+    end
+    return_json(@assortment,  200)
+  end
+
+  def show
+    assortment = Assortment.where(id: params[:id]).first
+    features = assortment.features.map(&:id) unless assortment.nil?
+
+    if assortment.nil?
+      return_json({errors: "Assortment ##{params[:id]} does not exist"}, 404)
+    else      
+      return_json(assortment.slice(:name, :description, :id).merge({features: features}), 200)
+    end
+  end
+
+  def create
+    @assortment = Assortment.new(assortment_params)
+
+    if params && params[:name] && params[:features]
+      features = Feature.check_features(params[:features])
+      if features.is_a?(Array)
+        return_json({errors: "Feature ids #{features} do not exist"}, 400)
+      elsif features.is_a?(Hash)
+        @assortment.save
+        features.values.each do |feature|
+          @assortment.features << feature
+        end
+        return_json(@assortment.slice(:id), 200)
+      end
+    else
+      return_json({errors: "Invalid params #{params.keys}- name & features required."}, 400)
+    end
+  end
+
+  def update
+    @assortment = Assortment.where(id: params[:id]).first
+    features = Feature.check_features(params[:features]) if params[:features]
+    if params[:name] && !features
+      update_name
+    elsif features.is_a?(Array)
+      @message = {errors: "Feature ids #{features} do not exist"}
+      @status = 400
+    elsif features.is_a?(Hash)
+      update_name if params[:name]
+      @assortment.features = features.values
+      @message = @assortment.slice(:id)
+      @status = 200
+    end
+    return_json(@message, @status)
+  end
+
+  private
+
+  def assortment_params
+    params.permit(:name, :description)
+  end
+
+  def update_name
+    @assortment.update({name: params[:name]})
+    @message = @assortment.slice(:id, :name)
+    @status = 200
+  end
+end

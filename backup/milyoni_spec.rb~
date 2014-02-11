@@ -1,0 +1,16 @@
+require 'spec_helper'
+
+describe 'milyoni' do
+  describe 'GET /milyoni/offers' do
+    describe 'valid' do
+      before do 
+        visit '/milyoni/offers' 
+      end
+      
+      it 'navigates' do
+        page.should have_content("Current Offers")
+        page.should have_content("Create New")       
+      end
+    end
+  end
+end

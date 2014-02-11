@@ -1,0 +1,33 @@
+class MilyoniController < ApplicationController
+  def index 
+    @current_offers = HTTParty.get("http://gozer-acc.herokuapp.com/api/v1/offers/current/", format: :json)
+    if @current_offers.response.to_s.include? 'HTTPOK'
+      @current_offers = JSON.parse @current_offers.body
+    else
+      @current_offers = nil
+    end
+  end	
+  
+  def new
+    assortments = HTTParty.get("http://gozer-acc.herokuapp.com/api/v1/assortments/", format: :json)
+    if assortments.response.to_s.include? 'HTTPOK'
+      json  = JSON.parse assortments.body
+      @response = []
+      json.each { |k,v| @response << [ v["name"], k ]}
+    else 
+      @response = [ "Unable to retrieve assortments.", "00" ]
+    end
+  end
+  
+  def create 
+    @offer = params.slice(:name, :description, :assortment, :start_date, :end_date, :price, :duration)
+    @offer["assortment_id"] = @offer.delete("assortment")
+    new_offer = HTTParty.post("http://gozer-acc.herokuapp.com/api/v1/offers/", headers: {"HTTP_AUTHORIZATION" => "Token token=f8564716dd2d852cccb46309821e977f"}, body: @offer.to_json)
+    binding.pry
+    if new_offer.response.to_s.include? 'HTTPOK'
+      redirect_to '/milyoni/offers/', notice: "Offer created successfully." 
+    else 
+      redirect_to '/milyoni/offers/', alert: "Please check your values and try again" 
+    end 
+  end
+end

@@ -1,0 +1,22 @@
+module Requests
+  module JsonHelpers
+    def json
+      @json ||= JSON.parse response.body
+    end
+  end
+    module UUIDHelpers
+    def random_uuid
+      SecureRandom.uuid
+    end
+  end
+
+  module InstanceHelpers
+    def create_instances(count, object)
+      i = 1
+      while i < (count + 1) do
+        instance_variable_set("@#{object.to_s}_#{i}", create(object))
+        i += 1
+      end
+    end
+  end
+end

@@ -1,0 +1,18 @@
+class CreateApiKeys < ActiveRecord::Migration
+
+  def up
+    create_table :api_keys do |t|
+      t.string :access_token, :unique => true
+      t.integer :site_id
+
+      t.timestamps
+    end
+    App.all.each do |app|
+      app.create_api_key
+    end
+  end
+
+  def down
+    drop_table :api_keys
+  end
+end

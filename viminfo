@@ -11,10 +11,11 @@
 ~MSle0~/indent
 
 # Command Line History (newest to oldest):
+:wq
 :q
+:w
 :q!
 :Rspec features/milyoni
-:w
 :vsplit ~/.vimrc
 :e spec/features/portal_spec.rb
 :split spec/features/milyoni_spec.rb
@@ -30,7 +31,6 @@
 :e config/initializers/geocoder.rb
 :!mv config/geocoder.rb config/initializers/geocoder.rb
 :e config/geocoder.rb
-:!rake db:drop db:create db:migrate
 
 # Search String History (newest to oldest):
 ?/indent
@@ -62,7 +62,7 @@
 # Registers:
 "0	CHAR	0
 	 row[3].nil? ? 2 : row[3]
-""1	LINE	0
+"1	LINE	0
 	 
 "2	LINE	0
 	 
@@ -112,22 +112,27 @@
 	  pool: 5
 	  username: second_chance
 	  p
-"-	CHAR	0
-	error
+""-	CHAR	0
+	vimfiles
 
 # File marks:
-'0  1  0  ~/.vim/.vimrc
-'1  14  9  ~/workspace/portal/spec/features/milyoni_spec.rb
-'2  1  0  ~/workspace/portal/spec/features/portal_spec.rb
-'3  22  8  ~/workspace/portal/spec/features/portal_spec.rb
-'4  18  112  ~/workspace/second_chance/db/seeds.rb
-'5  2  17  ~/workspace/second_chance/config/initializers/geocoder.rb
-'6  24  191  ~/workspace/second_chance/app/views/home/index.html.erb
-'7  1  13  ~/workspace/second_chance/app/views/home/index.html.erb
-'8  36  19  ~/workspace/second_chance/Gemfile
-'9  5  28  ~/workspace/portal/app/views/milyoni/new.html.erb
+'0  2  6  ~/.vim/.gitignore
+'1  1  4  ~/.vim/.gitignore
+'2  9  37  ~/.vim/.git/config
+'3  1  0  ~/.vimrc
+'4  1  0  ~/.vim/.vimrc
+'5  14  9  ~/workspace/portal/spec/features/milyoni_spec.rb
+'6  1  0  ~/workspace/portal/spec/features/portal_spec.rb
+'7  22  8  ~/workspace/portal/spec/features/portal_spec.rb
+'8  18  112  ~/workspace/second_chance/db/seeds.rb
+'9  2  17  ~/workspace/second_chance/config/initializers/geocoder.rb
 
 # Jumplist (newest first):
+-'  2  6  ~/.vim/.gitignore
+-'  1  0  ~/.vim/.gitignore
+-'  9  37  ~/.vim/.git/config
+-'  1  0  ~/.vim/.git/config
+-'  1  0  ~/.vimrc
 -'  1  0  ~/.vim/.vimrc
 -'  14  9  ~/workspace/portal/spec/features/milyoni_spec.rb
 -'  1  0  ~/workspace/portal/spec/features/milyoni_spec.rb
@@ -221,13 +226,43 @@
 -'  60  33  ~/workspace/gozer/spec/requests/offers_spec.rb
 -'  22  0  ~/workspace/gozer/spec/requests/offers_spec.rb
 -'  1  0  ~/workspace/gozer/spec/requests/offers_spec.rb
--'  14  4  ~/workspace/gozer/app/controllers/application_controller.rb
--'  13  4  ~/workspace/gozer/app/controllers/application_controller.rb
--'  1  0  ~/workspace/gozer/app/controllers/application_controller.rb
--'  9  4  ~/workspace/gozer/app/controllers/application_controller.rb
--'  3  0  ~/workspace/gozer/db/migrate/20140205192836_add_origin_to_api_keys.rb
 
 # History of marks within files (newest to oldest):
+
+> ~/.vim/.gitignore
+	"	2	6
+	^	2	7
+	.	2	6
+	+	1	4
+	+	2	6
+
+> ~/.vim/.git/config
+	"	9	37
+	^	9	38
+	.	9	37
+	+	9	37
+
+> ~/.vimrc
+	"	1	0
+	^	19	18
+	.	19	17
+	+	28	0
+	+	29	0
+	+	3	0
+	+	2	0
+	+	1	0
+	+	2	0
+	+	3	0
+	+	20	0
+	+	29	0
+	+	25	12
+	+	26	12
+	+	27	12
+	+	28	12
+	+	15	1
+	+	16	8
+	+	13	14
+	+	19	17
 
 > ~/.vim/.vimrc
 	"	1	0
@@ -255,28 +290,6 @@
 
 > ~/workspace/portal/spec/features/portal_spec.rb
 	"	1	0
-
-> ~/.vimrc
-	"	19	17
-	^	19	18
-	.	19	17
-	+	28	0
-	+	29	0
-	+	3	0
-	+	2	0
-	+	1	0
-	+	2	0
-	+	3	0
-	+	20	0
-	+	29	0
-	+	25	12
-	+	26	12
-	+	27	12
-	+	28	12
-	+	15	1
-	+	16	8
-	+	13	14
-	+	19	17
 
 > ~/workspace/portal/app/controllers/milyoni_controller.rb
 	"	30	37

@@ -13,7 +13,13 @@ set autoindent
 set smartindent
 set ttymouse=xterm2
 set backspace=indent,eol,start
+set term=xterm-256color
+set termencoding=utf-8
+set guifont=Inconsolata\ for\ Powerline:h15
+let g:Powerline_symbols = 'fancy'
+set fillchars+=stl:\ ,stlnc:\
 set paste
+set laststatus=2
 runtime macros/matchit.vim
 set nocompatible
 filetype indent on
@@ -64,4 +70,11 @@ if exists("+undofile")
   set undodir=./.vim-undo//
   set undodir+=~/.vim/undo//
   set undofile
+endif
+
+if has("gui_running")
+   let s:uname = system("uname")
+   if s:uname == "Darwin\n"
+      set guifont=Inconsolata\ for\ Powerline:h15
+   endif
 endif

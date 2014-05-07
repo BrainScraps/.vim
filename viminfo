@@ -8,7 +8,7 @@
 # hlsearch on (H) or off (h):
 ~h
 # Last Search Pattern:
-~MSle0~/respon
+~MSle0~/fillch
 
 # Last Substitute String:
 $
@@ -36,6 +36,8 @@ $
 :Smodel member_action
 
 # Search String History (newest to oldest):
+?/fillch
+?/term
 ?/respon
 ?/user_id
 ?/binding
@@ -54,8 +56,6 @@ $
 ?/created_at
 ?/P
 ?/lskdflsd
-?/se
-??new
 
 # Expression History (newest to oldest):
 
@@ -144,18 +144,24 @@ $
 	responsds
 
 # File marks:
-'0  3  4  ~/.vim/.gitignore
-'1  127  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
-'2  49  221  ~/.zshrc
-'3  7  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
-'4  21  0  ~/workspace/whopper/Gemfile
-'5  23  2  ~/workspace/whopper/Gemfile
-'6  227  80  ~/workspace/WCRedesign/public/edit_pack.html
-'7  13  18  ~/workspace/auth/app/views/dashboards/index.html.erb
-'8  21  45  ~/workspace/auth/app/views/dashboards/index.html.erb
-'9  133  53  ~/workspace/whopper/app/models/complex_query.rb
+'0  1  0  ~/.vim/viminfo
+'1  1  0  ~/.vim/.gitmodules
+'2  79  4  ~/.vim/.vimrc
+'3  1  0  ~/.vim/.netrwhist
+'4  3  4  ~/.vim/.gitignore
+'5  127  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+'6  49  221  ~/.zshrc
+'7  7  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+'8  21  0  ~/workspace/whopper/Gemfile
+'9  23  2  ~/workspace/whopper/Gemfile
 
 # Jumplist (newest first):
+-'  1  0  ~/.vim/viminfo
+-'  1  0  ~/.vim/.gitmodules
+-'  79  4  ~/.vim/.vimrc
+-'  14  14  ~/.vim/.vimrc
+-'  1  0  ~/.vim/.vimrc
+-'  1  0  ~/.vim/.netrwhist
 -'  3  4  ~/.vim/.gitignore
 -'  1  0  ~/.vim/.gitignore
 -'  127  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
@@ -248,21 +254,44 @@ $
 -'  83  10  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
 -'  81  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
 -'  65  4  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
--'  75  7  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
--'  55  4  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
--'  46  24  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
--'  84  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
--'  52  48  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
--'  53  12  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
--'  17  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
 
 # History of marks within files (newest to oldest):
 
+> ~/.vim/viminfo
+	"	1	0
+
+> ~/.vim/.gitmodules
+	"	1	0
+
+> ~/workspace/whopper/app/controllers/api/v1/impressions_controller.rb
+	"	1	0
+	^	19	59
+	.	19	48
+	+	4	0
+	+	14	1
+	+	15	0
+	+	17	58
+	+	19	48
+
+> ~/.vim/.vimrc
+	"	22	15
+	^	22	16
+	.	22	14
+	+	16	22
+	+	17	21
+	+	19	0
+	+	20	0
+	+	80	0
+	+	22	14
+
 > ~/.vim/.gitignore
-	"	3	4
+	"	1	0
 	^	3	5
 	.	3	4
 	+	3	4
+
+> ~/.vim/.netrwhist
+	"	1	0
 
 > ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
 	"	127	2
@@ -1214,16 +1243,6 @@ $
 	+	5	59
 	+	7	59
 
-> ~/workspace/whopper/app/controllers/api/v1/impressions_controller.rb
-	"	22	6
-	^	19	59
-	.	19	48
-	+	4	0
-	+	14	1
-	+	15	0
-	+	17	58
-	+	19	48
-
 > ~/workspace/whopper/app/controllers/api/v1/visitors_controller.rb
 	"	31	55
 	^	31	56
@@ -1810,15 +1829,3 @@ $
 	"	55	4
 	.	56	0
 	+	56	0
-
-> ~/workspace/bridge_troll/spec/features/event_checkiner_request_spec.rb
-	"	12	6
-
-> ~/workspace/bridge_troll/app/controllers/events/attendees_controller.rb
-	"	25	0
-
-> ~/workspace/bridge_troll/app/models/event.rb
-	"	16	0
-
-> ~/workspace/bridge_troll/app/models/rsvp.rb
-	"	75	0

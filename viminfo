@@ -8,50 +8,54 @@
 # hlsearch on (H) or off (h):
 ~h
 # Last Search Pattern:
-~MSle0~/indent
+~MSle0~/respon
+
+# Last Substitute String:
+$
 
 # Command Line History (newest to oldest):
-:wq
 :q
 :w
-:q!
-:Rspec features/milyoni
-:vsplit ~/.vimrc
-:e spec/features/portal_spec.rb
-:split spec/features/milyoni_spec.rb
-:split ~/.vimrc
-:!rake routes
-:w spec/features/
-:Rview milyoni/index.html.erb
-:split app/views/portal/show.html.erb
-:Rview milyoni/new.html.erb
-:Rview
-:vsplit spec/requests/milyoni_spec.rb
-:!rake db:seed
-:e config/initializers/geocoder.rb
-:!mv config/geocoder.rb config/initializers/geocoder.rb
-:e config/geocoder.rb
+:Rspec requests/api/clickthroughs
+:Vspec requests/api/clickthroughs
+:Scontroller api/v1/clickthroughs
+:Rmodel complex_query
+:!rspec
+:!bundle update
+:e config/database.yml
+:Rspec
+:split spec/
+:split Gemfile
+:!rake
+:!bundle
+:!rails c
+:Rake rspec
+:e edit_pack.html
+:wq
+:Vmigration create_member_actions
+:Smodel member_action
 
 # Search String History (newest to oldest):
-?/indent
-?/devel
-?/<<<
-?/backsp
-?/201
-?/api
-?/404
-?/HTTP
-?/http
-?/patch
-?/def
-?/fi
+?/respon
+?/user_id
+?/binding
+??_by_packs
+?/count_of
+?/click
+?/ifra
+?/ifram
 ??&
-?/upd
-?/priv
-?/date
-?/po
-?/inde
-?/awes
+?/::t
+??def
+? \<date_range_array\>
+? )
+??"
+? \<account\>
+?/created_at
+?/P
+?/lskdflsd
+?/se
+??new
 
 # Expression History (newest to oldest):
 
@@ -60,1107 +64,1761 @@
 # Input Line History (newest to oldest):
 
 # Registers:
-"0	CHAR	0
-	 row[3].nil? ? 2 : row[3]
-"1	LINE	0
-	 
-"2	LINE	0
-	 
+"0	LINE	0
+	    it 'gives a valid response to a valid request' do
+	      q_params = "?user_id=281"
+	      get "/api/v1/clickthroughs/series#{q_params}"
+	      expect(response.status).to eq 200
+	      expect(json["error"]).to be_false
+	      expect(json["start_date"]).to be_true
+	      expect(json["total"]).to be_true
+	      expect(json["dates"]).to be_a_kind_of Array
 	    end
+	
+	    it 'gives an error if no query param is passed' do
+	      q_params = ""
+	      get "/api/v1/clickthroughs/series#{q_params}"
+	      expect(response.status).to eq 400
+	      expect(json["error"]).to be_true
+	      expect(json["error"]).to eq "Please include either user_id or pack_id" 
+	      expect(json["start_date"]).to be_false
+	      expect(json["total"]).to be_false
+	    end
+	
+	    it 'handles a non-integer query param' do
+	      q_params = ""
+	      get "/api/v1/clickthroughs/series#{q_params}"
+	      expect(response.status).to eq 400
+	      expect(json["error"]).to be_true
+	      expect(json["error"]).to eq "Please include either user_id or pack_id" 
+	      expect(json["start_date"]).to be_false
+	      expect(json["total"]).to be_false
+	    end
+	
+	    it 'handles an out-of-bounds integer' do
+	      q_params = "?user_id=1231234"
+	      get "/api/v1/clickthroughs/series#{q_params}"
+	      expect(response.status).to eq 200
+	      expect(json["error"]).to be_false
+	      expect(json["start_date"]).to eq ""
+	      expect(json["total"]).to eq 0
+	      expect(json["dates"]).to be_a_kind_of Array
+	    end
+"1	LINE	0
+	
+"2	LINE	0
+	     
 "3	LINE	0
-	
-	
-	
-	
-	
-	
-	
+	    
 "4	LINE	0
-	
-	
-	
-	
-	
-	
-	
-	  <%= submit_tag 'Create' %>
+	      expect(json["start_date"]).to be_false
 "5	LINE	0
-	 <%= flash.inspect %> 
+	      expect(json["error"]).to eq "Please include either user_id or pack_id" 
 "6	LINE	0
-	<%= 
+	    it 
 "7	LINE	0
-	  password:
+	      expect(json["dates"]).to be_a_kind_of Array
 "8	LINE	0
-	assword:
-"9	CHAR	0
 	
-	# Warning: The database defined as "test" will be erased and
-	# re-generated from your development database when you run "rake".
-	# Do not set this db to the same as development or production.
-	test:
-	  adapter: postgresql
-	  encoding: unicode
-	  database: second_chance_test
-	  pool: 5
-	  username: second_chance
-	  password:
-	
-	production:
-	  adapter: postgresql
-	  encoding: unicode
-	  database: second_chance_production
-	  pool: 5
-	  username: second_chance
-	  p
+"9	LINE	0
+	    do
+"c	CHAR	0
+	f
+"h	CHAR	0
+	h
+"i	CHAR	0
+	^i€kb
+"j	CHAR	0
+	jkkjkjjjjj
+"k	CHAR	0
+	kkk
+"o	CHAR	0
+	0i"
+"p	CHAR	0
+	$i"q€kb
+"u	CHAR	0
+	0i"$A"
+"v	CHAR	0
+	imu
 ""-	CHAR	0
-	vimfiles
+	responsds
 
 # File marks:
-'0  2  6  ~/.vim/.gitignore
-'1  1  4  ~/.vim/.gitignore
-'2  9  37  ~/.vim/.git/config
-'3  1  0  ~/.vimrc
-'4  1  0  ~/.vim/.vimrc
-'5  14  9  ~/workspace/portal/spec/features/milyoni_spec.rb
-'6  1  0  ~/workspace/portal/spec/features/portal_spec.rb
-'7  22  8  ~/workspace/portal/spec/features/portal_spec.rb
-'8  18  112  ~/workspace/second_chance/db/seeds.rb
-'9  2  17  ~/workspace/second_chance/config/initializers/geocoder.rb
+'0  3  4  ~/.vim/.gitignore
+'1  127  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+'2  49  221  ~/.zshrc
+'3  7  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+'4  21  0  ~/workspace/whopper/Gemfile
+'5  23  2  ~/workspace/whopper/Gemfile
+'6  227  80  ~/workspace/WCRedesign/public/edit_pack.html
+'7  13  18  ~/workspace/auth/app/views/dashboards/index.html.erb
+'8  21  45  ~/workspace/auth/app/views/dashboards/index.html.erb
+'9  133  53  ~/workspace/whopper/app/models/complex_query.rb
 
 # Jumplist (newest first):
--'  2  6  ~/.vim/.gitignore
+-'  3  4  ~/.vim/.gitignore
 -'  1  0  ~/.vim/.gitignore
--'  9  37  ~/.vim/.git/config
--'  1  0  ~/.vim/.git/config
--'  1  0  ~/.vimrc
--'  1  0  ~/.vim/.vimrc
--'  14  9  ~/workspace/portal/spec/features/milyoni_spec.rb
--'  1  0  ~/workspace/portal/spec/features/milyoni_spec.rb
--'  1  0  ~/workspace/portal/spec/features/portal_spec.rb
--'  22  8  ~/workspace/portal/spec/features/portal_spec.rb
--'  40  12  ~/workspace/portal/spec/features/portal_spec.rb
--'  20  10  ~/workspace/portal/spec/features/portal_spec.rb
--'  38  0  ~/workspace/portal/spec/features/portal_spec.rb
--'  6  24  ~/workspace/portal/spec/requests/milyoni_spec.rb
--'  25  4  ~/workspace/portal/app/controllers/milyoni_controller.rb
--'  1  0  ~/workspace/portal/app/controllers/milyoni_controller.rb
--'  18  112  ~/workspace/second_chance/db/seeds.rb
--'  1  0  ~/workspace/second_chance/db/seeds.rb
--'  2  17  ~/workspace/second_chance/config/initializers/geocoder.rb
--'  11  20  ~/workspace/second_chance/db/migrate/20140209170936_create_businesses_table.rb
--'  28  0  ~/workspace/second_chance/db/schema.rb
--'  9  14  ~/workspace/second_chance/app/models/business.rb
--'  30  13  ~/workspace/second_chance/Gemfile
--'  1  0  ~/workspace/second_chance/Gemfile
--'  24  191  ~/workspace/second_chance/app/views/home/index.html.erb
--'  9  22  ~/workspace/second_chance/app/views/home/index.html.erb
--'  30  0  ~/workspace/second_chance/app/views/home/index.html.erb
--'  13  65  ~/workspace/second_chance/app/views/home/index.html.erb
--'  17  0  ~/workspace/second_chance/app/assets/stylesheets/application.css
--'  1  0  ~/workspace/second_chance/app/assets/stylesheets/application.css
--'  6  10  ~/workspace/second_chance/app/views/home/index.html.erb
--'  1  49  ~/workspace/second_chance/app/views/home/index.html.erb
--'  9  58  ~/workspace/second_chance/app/views/layouts/application.html.erb
--'  1  21  ~/workspace/second_chance/app/controllers/home_controller.rb
--'  24  0  ~/workspace/second_chance/config/database.yml
--'  1  0  ~/workspace/second_chance/config/database.yml
--'  3  3  ~/workspace/second_chance/app/controllers/home_controller.rb
--'  2  22  ~/workspace/second_chance/config/routes.rb
--'  1  0  ~/workspace/second_chance/config/routes.rb
--'  36  19  ~/workspace/second_chance/Gemfile
--'  5  28  ~/workspace/portal/app/views/milyoni/new.html.erb
--'  6  28  ~/workspace/portal/app/views/milyoni/new.html.erb
--'  4  21  ~/workspace/portal/app/views/milyoni/new.html.erb
--'  19  27  ~/workspace/portal/app/views/milyoni/new.html.erb
--'  9  2  ~/workspace/portal/app/controllers/milyoni_controller.rb
--'  32  4  ~/workspace/portal/app/controllers/milyoni_controller.rb
--'  8  2  ~/workspace/portal/app/controllers/milyoni_controller.rb
--'  5  44  ~/workspace/portal/app/controllers/milyoni_controller.rb
--'  10  30  ~/workspace/portal/app/controllers/portal_controller.rb
--'  1  0  ~/workspace/portal/app/controllers/portal_controller.rb
--'  2  0  ~/workspace/interview-questions/.git/COMMIT_EDITMSG
--'  1  0  ~/workspace/interview-questions/.git/COMMIT_EDITMSG
--'  92  22  ~/workspace/interview-questions/README
--'  1  0  ~/workspace/interview-questions/README
--'  97  45  ~/workspace/interview-questions/README
--'  24  0  ~/workspace/interview-questions/README
--'  78  0  ~/workspace/interview-questions/README
--'  58  0  ~/workspace/interview-questions/README
--'  75  37  ~/workspace/interview-questions/README
--'  77  5  ~/workspace/interview-questions/README
--'  69  0  ~/workspace/interview-questions/README
--'  51  21  ~/workspace/interview-questions/readme
--'  1  0  ~/workspace/interview-questions/readme
--'  15  1  ~/workspace/interview-questions/readme
--'  3  11  ~/workspace/interview-questions/README
--'  8  0  ~/workspace/interview-questions/README
--'  10  0  ~/workspace/octane/db/migrate/20131226201917_create_api_keys.rb
--'  1  0  ~/workspace/octane/db/migrate/20131226201917_create_api_keys.rb
--'  6  22  ~/workspace/octane/db/migrate/20131226201917_create_api_keys.rb
--'  118  0  /usr/local/etc/nginx/nginx.conf
--'  1  0  /usr/local/etc/nginx/nginx.conf
--'  14  28  /private/etc/hosts
--'  1  0  /private/etc/hosts
--'  15  1  /private/etc/hosts
--'  196  40  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  139  52  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  55  35  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  67  2  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  44  43  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  47  4  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  1  0  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  33  57  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  6  25  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  7  60  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  9  3  ~/workspace/gozer/spec/requests/producers_spec.rb
--'  4  0  ~/workspace/gozer/app/models/api_key.rb
--'  1  0  ~/workspace/gozer/app/models/api_key.rb
--'  1  0  ~/workspace/gozer/.git/MERGE_MSG
--'  1  0  ~/workspace/gozer/.git/COMMIT_EDITMSG
--'  5  2  ~/workspace/gozer/spec/factories/api_key_factory.rb
--'  114  6  ~/workspace/gozer/spec/requests/offers_spec.rb
--'  137  0  ~/workspace/gozer/spec/requests/offers_spec.rb
--'  80  6  ~/workspace/gozer/spec/requests/offers_spec.rb
--'  64  35  ~/workspace/gozer/spec/requests/offers_spec.rb
--'  5  4  ~/workspace/gozer/spec/requests/offers_spec.rb
--'  60  33  ~/workspace/gozer/spec/requests/offers_spec.rb
--'  22  0  ~/workspace/gozer/spec/requests/offers_spec.rb
--'  1  0  ~/workspace/gozer/spec/requests/offers_spec.rb
+-'  127  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  23  13  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  20  15  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  16  13  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  13  8  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  8  13  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  5  22  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  1  0  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  102  57  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  112  57  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  44  33  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  118  25  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  88  25  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  83  10  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  81  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  65  4  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  75  7  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  55  4  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  46  24  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  84  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  52  48  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  53  12  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  17  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  47  52  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  14  3  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  49  221  ~/.zshrc
+-'  1  0  ~/.zshrc
+-'  7  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  62  6  ~/workspace/whopper/app/models/complex_query.rb
+-'  215  21  ~/workspace/whopper/app/models/complex_query.rb
+-'  219  22  ~/workspace/whopper/app/models/complex_query.rb
+-'  79  33  ~/workspace/whopper/app/models/complex_query.rb
+-'  216  23  ~/workspace/whopper/app/models/complex_query.rb
+-'  60  11  ~/workspace/whopper/app/models/complex_query.rb
+-'  5  0  ~/workspace/whopper/app/models/complex_query.rb
+-'  202  2  ~/workspace/whopper/app/models/complex_query.rb
+-'  163  8  ~/workspace/whopper/app/models/complex_query.rb
+-'  139  2  ~/workspace/whopper/app/models/complex_query.rb
+-'  1  0  ~/workspace/whopper/app/models/complex_query.rb
+-'  21  0  ~/workspace/whopper/Gemfile
+-'  5  0  ~/workspace/whopper/spec/spec_helper.rb
+-'  1  0  ~/workspace/whopper/spec/spec_helper.rb
+-'  23  2  ~/workspace/whopper/Gemfile
+-'  1  0  ~/workspace/whopper/Gemfile
+-'  227  80  ~/workspace/WCRedesign/public/edit_pack.html
+-'  4  0  ~/workspace/WCRedesign/public/edit_pack.html
+-'  58  161  ~/workspace/WCRedesign/public/packs.html
+-'  57  0  ~/workspace/WCRedesign/public/packs.html
+-'  1  0  ~/workspace/WCRedesign/public/packs.html
+-'  13  18  ~/workspace/auth/app/views/dashboards/index.html.erb
+-'  1  0  ~/workspace/auth/app/views/dashboards/index.html.erb
+-'  21  45  ~/workspace/auth/app/views/dashboards/index.html.erb
+-'  16  100  ~/workspace/auth/app/views/dashboards/index.html.erb
+-'  133  53  ~/workspace/whopper/app/models/complex_query.rb
+-'  36  8  ~/workspace/whopper/app/models/complex_query.rb
+-'  73  4  ~/workspace/whopper/app/models/complex_query.rb
+-'  59  7  ~/workspace/whopper/app/models/complex_query.rb
+-'  35  8  ~/workspace/whopper/app/models/complex_query.rb
+-'  6  8  ~/workspace/whopper/app/models/complex_query.rb
+-'  33  0  ~/workspace/whopper/app/models/complex_query.rb
+-'  80  45  ~/workspace/whopper/app/models/complex_query.rb
+-'  1  0  ~/workspace/hasten/app/models/member_action.rb
+-'  3  51  ~/workspace/hasten/app/models/action.rb
+-'  1  0  ~/workspace/hasten/app/models/action.rb
+-'  4  0  ~/workspace/hasten/db/migrate/20140414064930_create_member_actions.rb
+-'  1  0  ~/workspace/hasten/db/migrate/20140414065450_add_account_id_to_family_members.rb
+-'  3  26  ~/workspace/hasten/app/models/member_action.rb
+-'  3  25  ~/workspace/hasten/app/models/family_member.rb
+-'  5  22  ~/workspace/hasten/app/models/family_member.rb
+-'  1  0  ~/workspace/hasten/app/models/family_member.rb
+-'  221  7  ~/workspace/whopper/app/models/complex_query.rb
+-'  55  4  ~/workspace/whopper/app/models/complex_query.rb
+-'  244  871  ~/workspace/whopper/app/models/complex_query.rb
+-'  235  262  ~/workspace/whopper/app/models/complex_query.rb
+-'  127  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  23  13  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  20  15  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  16  13  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  13  8  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  8  13  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  5  22  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  1  0  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  102  57  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  112  57  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  44  33  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  118  25  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  88  25  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  83  10  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  81  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  65  4  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  75  7  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  55  4  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  46  24  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  84  2  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  52  48  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  53  12  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+-'  17  6  ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
 
 # History of marks within files (newest to oldest):
 
 > ~/.vim/.gitignore
-	"	2	6
-	^	2	7
-	.	2	6
-	+	1	4
-	+	2	6
+	"	3	4
+	^	3	5
+	.	3	4
+	+	3	4
 
-> ~/.vim/.git/config
-	"	9	37
-	^	9	38
-	.	9	37
-	+	9	37
-
-> ~/.vimrc
-	"	1	0
-	^	19	18
-	.	19	17
-	+	28	0
-	+	29	0
-	+	3	0
-	+	2	0
-	+	1	0
-	+	2	0
-	+	3	0
-	+	20	0
-	+	29	0
-	+	25	12
-	+	26	12
-	+	27	12
-	+	28	12
-	+	15	1
-	+	16	8
-	+	13	14
-	+	19	17
-
-> ~/.vim/.vimrc
-	"	1	0
-
-> ~/workspace/portal/spec/features/milyoni_spec.rb
-	"	14	9
-	^	14	10
-	.	14	9
-	+	5	14
-	+	3	16
-	+	4	31
-	+	5	13
-	+	21	0
-	+	20	6
-	+	7	32
-	+	8	9
-	+	19	0
-	+	18	9
-	+	11	50
-	+	12	46
-	+	13	37
-	+	17	9
-	+	16	10
-	+	14	9
-
-> ~/workspace/portal/spec/features/portal_spec.rb
-	"	1	0
-
-> ~/workspace/portal/app/controllers/milyoni_controller.rb
-	"	30	37
-	^	30	38
-	.	30	37
-	+	2	12
-	+	5	47
-	+	21	2
-	+	20	1
-	+	25	59
-	+	23	4
-	+	12	18
-	+	3	19
-	+	12	76
-	+	20	0
-	+	23	104
-	+	25	169
-	+	23	0
-	+	25	15
-	+	5	44
-	+	5	34
-	+	9	0
-	+	32	4
-	+	9	0
-	+	18	20
-	+	14	10
-	+	17	49
-	+	18	61
-	+	20	4
-	+	12	4
-	+	13	7
-	+	14	25
-	+	17	19
-	+	17	0
-	+	1	0
-	+	17	51
-	+	20	0
-	+	17	52
-	+	18	45
-	+	17	65
-	+	18	81
-	+	17	39
-	+	17	0
+> ~/workspace/whopper/spec/requests/api/clickthroughs_spec.rb
+	"	127	2
+	^	27	16
+	.	27	14
+	+	4	35
+	+	7	19
+	+	9	28
+	+	10	28
 	+	15	19
-	+	16	35
-	+	15	19
-	+	16	50
-	+	18	59
-	+	17	0
-	+	20	0
-	+	27	4
-	+	25	166
-	+	27	48
-	+	31	6
-	+	23	57
-	+	25	4
-	+	23	0
+	+	22	19
+	+	29	19
+	+	36	19
+	+	9	0
+	+	39	6
+	+	127	2
+	+	84	4
+	+	85	1
+	+	44	43
+	+	84	2
+	+	86	0
+	+	87	4
+	+	86	39
+	+	127	0
+	+	84	3
+	+	47	36
+	+	45	52
+	+	47	0
+	+	47	0
+	+	47	49
+	+	47	0
+	+	46	2
+	+	47	2
+	+	48	38
+	+	84	0
+	+	84	0
+	+	49	38
+	+	50	42
+	+	84	0
+	+	53	6
+	+	53	0
+	+	51	23
+	+	52	0
+	+	75	0
+	+	54	0
+	+	84	0
+	+	75	49
+	+	46	0
+	+	44	39
+	+	86	39
+	+	76	18
+	+	78	38
+	+	79	37
+	+	81	43
+	+	81	34
+	+	83	0
+	+	81	0
+	+	81	75
+	+	55	0
+	+	75	0
+	+	64	0
+	+	75	40
+	+	84	0
+	+	65	0
+	+	74	0
+	+	75	39
+	+	76	33
+	+	78	36
+	+	79	38
+	+	81	0
+	+	80	40
+	+	81	34
+	+	83	0
+	+	82	48
+	+	84	0
+	+	87	0
+	+	88	25
+	+	102	0
+	+	118	19
+	+	88	29
+	+	127	0
+	+	20	15
+	+	27	14
+
+> ~/workspace/whopper/Gemfile
+	"	1	0
+	^	10	20
+	.	10	19
+	+	10	19
+
+> ~/.zshrc
+	"	49	221
+	^	49	222
+	.	49	221
+	+	49	12
+	+	49	221
+
+> ~/workspace/whopper/app/models/complex_query.rb
+	"	62	6
+	.	63	0
+	+	136	6
+	+	132	0
+	+	137	0
+	+	132	0
+	+	265	0
+	+	266	0
+	+	266	0
+	+	140	0
+	+	233	4
+	+	231	4
+	+	230	39
+	+	145	1
+	+	145	0
+	+	229	0
+	+	145	0
+	+	166	0
+	+	187	0
+	+	208	0
+	+	166	18
+	+	187	15
+	+	208	20
+	+	154	17
+	+	158	5
+	+	159	24
+	+	160	15
+	+	155	5
+	+	158	5
+	+	159	24
+	+	160	15
+	+	161	5
+	+	162	24
+	+	163	16
+	+	164	6
+	+	170	0
+	+	191	0
+	+	212	0
+	+	146	17
+	+	171	0
+	+	167	17
+	+	188	17
+	+	209	17
+	+	228	4
+	+	207	4
+	+	186	4
+	+	165	4
+	+	167	16
+	+	188	16
+	+	209	16
+	+	148	9
+	+	147	29
+	+	168	0
+	+	169	4
+	+	148	4
+	+	189	0
+	+	190	5
+	+	210	0
+	+	144	0
+	+	142	10
+	+	147	33
+	+	152	29
+	+	161	29
+	+	165	0
+	+	166	29
+	+	175	29
+	+	179	29
+	+	179	0
+	+	180	29
+	+	189	29
+	+	194	29
+	+	221	99
+	+	225	133
+	+	229	140
+	+	233	270
+	+	235	262
+	+	242	0
+	+	233	0
+	+	233	270
+	+	235	263
+	+	235	0
+	+	235	262
+	+	242	47
+	+	244	881
+	+	6	15
+	+	221	87
+	+	37	49
+	+	38	61
+	+	61	0
+	+	62	63
+	+	80	0
+	+	81	48
+	+	82	53
+	+	35	0
+	+	36	0
+	+	37	61
+	+	59	7
+	+	59	0
+	+	60	63
+	+	78	0
+	+	79	53
+	+	63	0
+
+> ~/workspace/whopper/app/controllers/api/v1/clickthroughs_controller.rb
+	"	7	126
+	^	7	127
+	.	7	126
+	+	22	30
+	+	18	10
+	+	19	10
+	+	21	43
+	+	3	0
+	+	14	0
+	+	15	8
+	+	18	46
+	+	18	0
+	+	18	0
+	+	16	0
+	+	17	28
+	+	20	59
+	+	18	50
+	+	2	0
+	+	26	0
 	+	25	0
-	+	24	56
-	+	26	15
-	+	25	142
-	+	3	73
-	+	12	69
-	+	25	68
-	+	30	37
+	+	28	60
+	+	30	48
+	+	7	126
 
-> ~/workspace/portal/ControlP
+> ~/workspace/gozer/spec/spec_helper.rb
+	"	1	0
+
+> ~/workspace/whopper/spec/spec_helper.rb
+	"	42	0
+
+> ~/workspace/whopper/spec/requests/api/v1/interactions_spec.rb
+	"	1	0
+	^	36	31
+	.	36	30
+	+	40	0
+	+	40	0
+	+	34	0
+	+	33	0
+	+	36	30
+
+> ~/workspace/whopper/config/database.yml
+	"	44	3
+	^	44	4
+	.	44	3
+	+	10	2
+	+	11	7
+	+	8	18
+	+	9	22
+	+	4	0
+	+	54	0
+	+	61	0
+	+	28	9
+	+	44	3
+
+> ~/workspace/whopper/Gemfile.lock
+	"	95	5
+
+> /private/var/folders/8h/sx5bt1v109x2ylm49vh7wq0w0000gp/T/psql.edit.52221.sql
+	"	1	0
+
+> ~/workspace/WCRedesign/public/packs.html
+	"	58	161
+	^	58	162
+	.	58	161
+	+	58	7
+	+	60	1
+	+	59	3
+	+	58	24
+	+	60	0
+	+	59	32
+	+	58	161
+
+> ~/workspace/WCRedesign/public/edit_pack.html
+	"	227	80
+	^	227	81
+	.	227	80
+	+	227	80
+
+> ~/workspace/auth/app/views/dashboards/index.html.erb
+	"	13	18
+	^	13	19
+	.	13	18
+	+	24	30
+	+	18	30
+	+	12	49
+	+	12	167
+	+	15	0
+	+	14	1
+	+	15	16
+	+	14	145
+	+	12	22
+	+	16	0
+	+	12	23
+	+	14	2
+	+	14	135
+	+	15	19
+	+	15	139
+	+	16	0
+	+	15	0
+	+	16	16
+	+	14	70
+	+	16	93
+	+	14	92
+	+	15	95
+	+	16	94
+	+	16	92
+	+	16	1
+	+	24	0
+	+	22	1
+	+	21	2
+	+	20	2
+	+	23	0
+	+	20	42
+	+	6	9
+	+	1	4
+	+	8	167
+	+	16	101
+	+	16	0
+	+	16	103
+	+	16	0
+	+	16	105
+	+	16	0
+	+	13	0
+	+	13	106
+	+	15	96
+	+	8	146
+	+	13	18
+
+> ~/workspace/hasten/app/models/action.rb
+	"	2	25
+	^	2	26
+	.	2	25
+	+	4	0
+	+	4	0
+	+	4	0
+	+	3	51
+	+	2	25
+
+> ~/workspace/hasten/app/models/member_action.rb
+	"	1	0
+	^	3	27
+	.	3	26
+	+	4	0
+	+	4	0
+	+	2	20
+	+	3	26
+
+> ~/workspace/hasten/db/migrate/20140414064930_create_member_actions.rb
+	"	1	0
+	^	3	55
+	.	3	54
+	+	1	26
+	+	3	54
+
+> ~/workspace/hasten/app/models/family_member.rb
+	"	3	25
+	^	3	26
+	.	3	25
+	+	5	0
+	+	5	0
+	+	5	0
+	+	4	44
+	+	3	25
+
+> ~/workspace/hasten/db/migrate/20140414065450_add_account_id_to_family_members.rb
+	"	1	0
+
+> /private/var/folders/8h/sx5bt1v109x2ylm49vh7wq0w0000gp/T/psql.edit.49751.sql
+	"	1	155
+	^	1	156
+	.	1	156
+	+	1	189
+	+	1	0
+	+	1	156
+
+> ~/workspace/hasten/app/controllers/accounts_controller.rb
+	"	3	0
+	^	3	0
+	.	3	0
+	+	21	67
+	+	9	0
+	+	4	0
+	+	2	0
+	+	3	0
+
+> ~/workspace/hasten/app/views/accounts/index.html.haml
+	"	4	26
+	^	4	27
+	.	4	26
+	+	5	0
+	+	4	26
+
+> ~/workspace/hasten/app/views/accounts/show.html.haml
+	"	2	67
+	^	2	68
+	.	2	67
+	+	9	1
+	+	11	12
+	+	9	0
+	+	7	20
+	+	1	5
+	+	1	0
+	+	7	21
+	+	1	20
+	+	7	10
+	+	8	4
+	+	2	73
+	+	1	5
+	+	1	55
+	+	2	0
+	+	1	51
+	+	2	35
+	+	1	60
+	+	2	68
+	+	3	13
+	+	5	23
+	+	2	28
+	+	5	66
+	+	2	67
+
+> ~/workspace/hasten/db/seeds.rb
+	"	59	0
+	^	25	32
+	.	25	30
+	+	47	0
+	+	47	45
+	+	48	0
+	+	47	75
+	+	48	51
+	+	50	0
+	+	49	74
+	+	50	43
+	+	51	0
+	+	50	65
+	+	51	0
+	+	50	0
+	+	48	0
+	+	46	0
+	+	45	0
+	+	44	0
+	+	43	0
+	+	42	0
+	+	41	0
+	+	59	31
+	+	58	34
+	+	58	0
+	+	57	67
+	+	57	0
+	+	56	59
+	+	56	0
+	+	55	68
+	+	55	0
+	+	54	6
+	+	58	18
+	+	59	0
+	+	58	0
+	+	57	0
+	+	56	0
+	+	8	14
+	+	9	0
+	+	9	0
+	+	8	110
+	+	9	56
+	+	10	72
+	+	11	110
+	+	12	63
+	+	13	59
+	+	14	67
+	+	15	80
+	+	17	75
+	+	18	72
+	+	19	48
+	+	20	50
+	+	21	51
+	+	22	41
+	+	23	69
+	+	24	50
+	+	25	77
+	+	26	20
+	+	27	75
+	+	28	61
+	+	29	56
+	+	30	45
+	+	31	33
+	+	32	56
+	+	33	68
+	+	34	29
+	+	35	56
+	+	36	44
+	+	37	0
+	+	38	17
+	+	39	0
+	+	40	41
+	+	41	44
+	+	42	49
+	+	43	52
+	+	44	78
+	+	45	51
+	+	46	52
+	+	47	76
+	+	48	52
+	+	49	75
+	+	50	66
+	+	51	43
+	+	54	39
+	+	55	69
+	+	56	60
+	+	57	68
+	+	58	36
+	+	59	32
+	+	55	0
+	+	41	0
+	+	37	0
+	+	39	0
+	+	28	0
+	+	17	31
+	+	18	30
+	+	19	30
+	+	20	30
+	+	21	30
+	+	22	30
+	+	23	30
+	+	24	30
+	+	25	30
+
+> /private/var/folders/8h/sx5bt1v109x2ylm49vh7wq0w0000gp/T/psql.edit.35312.sql
+	"	21	0
+	^	21	0
+	.	20	27
+	+	1	59
+	+	1	63
+	+	122	0
+	+	112	250
+	+	1	63
+	+	102	0
+	+	1	60
+	+	82	0
+	+	1	0
+	+	59	26
+	+	49	56
+	+	1	64
+	+	41	19
+	+	1	60
+	+	1	0
+	+	22	0
+	+	20	27
+
+> ~/workspace/cockpit/config/database.yml
+	"	1	0
+
+> ~/workspace/cockpit/config/initializers/inflections.rb
+	"	1	0
+
+> ~/workspace/cockpit/config/application.rb
+	"	23	4
+	^	23	18
+	.	23	17
+	+	24	3
+	+	23	17
+
+> ~/workspace/cockpit/app/controllers/application_controller.rb
+	"	306	25
+	^	306	26
+	.	306	25
+	+	307	4
+	+	306	25
+
+> ~/workspace/auth/app/controllers/application_controller.rb
+	"	1	0
+
+> ~/workspace/whopper/config/initializers/secret_token.rb
+	"	1	0
+
+> ~/workspace/cockpit/db/seeds.rb
+	"	1	0
+	^	18	29
+	.	18	28
+	+	61	58
+	+	31	0
+	+	64	0
+	+	65	0
+	+	65	28
+	+	65	77
+	+	65	71
+	+	65	71
+	+	65	74
+	+	71	66
+	+	72	61
+	+	89	0
+	+	115	0
+	+	89	0
+	+	90	18
+	+	91	68
+	+	92	66
+	+	93	66
+	+	94	69
+	+	95	70
+	+	96	65
+	+	26	63
+	+	28	62
+	+	32	0
+	+	61	0
+	+	33	0
+	+	36	0
+	+	36	74
+	+	36	74
+	+	55	0
+	+	57	0
+	+	65	0
+	+	65	9
+	+	65	0
+	+	61	0
+	+	57	0
+	+	55	0
+	+	32	0
+	+	33	0
+	+	36	0
+	+	36	74
+	+	36	74
+	+	36	74
+	+	36	74
+	+	36	74
+	+	34	0
+	+	36	74
+	+	35	0
+	+	38	68
+	+	39	0
+	+	49	13
+	+	34	0
+	+	35	0
+	+	36	73
+	+	36	0
+	+	49	0
+	+	41	111
+	+	41	7
+	+	42	6
+	+	46	0
+	+	46	5
+	+	47	5
+	+	46	95
+	+	47	67
+	+	57	17
+	+	58	0
+	+	57	6
+	+	58	164
+	+	57	131
+	+	63	0
+	+	59	203
+	+	48	13
+	+	49	16
+	+	48	39
+	+	49	44
+	+	62	166
+	+	51	42
+	+	62	159
+	+	65	0
+	+	37	7
+	+	56	16
+	+	60	16
+	+	63	196
+	+	54	0
+	+	52	5
+	+	53	5
+	+	62	159
+	+	12	80
+	+	25	4
+	+	24	6
+	+	61	0
+	+	20	60
+	+	21	70
+	+	20	56
+	+	22	18
+	+	20	10
+	+	22	70
+	+	23	64
+	+	24	0
+	+	18	28
+
+> ~/workspace/cockpit/Gemfile
+	"	21	0
+	^	21	2
+	.	21	0
+	+	7	26
+	+	16	0
+	+	19	16
+	+	15	9
+	+	18	19
+	+	21	1
+	+	30	0
+	+	21	0
+	+	30	0
+	+	21	0
+	+	21	20
+	+	22	0
+	+	23	2
+	+	22	1
+	+	20	0
+	+	24	0
+	+	22	0
+	+	21	0
+	+	22	0
+	+	23	0
+	+	22	0
+	+	21	0
+	j	14	23
+
+> ~/workspace/cockpit/config/environments/staging.rb
+	"	43	2
+
+> ~/workspace/cockpit/config/environments/production.rb
+	"	1	0
+	^	15	49
+	.	15	48
+	+	15	49
+	+	46	25
+	+	15	48
+
+> ~/workspace/cockpit/config/secrets.yml
+	"	21	0
+	^	21	0
+	.	21	0
+	+	19	6
+	+	21	0
+
+> ~/workspace/cockpit/config/environment.rb
+	"	1	0
+
+> ~/workspace/cockpit/bin/rails
+	"	1	0
+
+> ~/workspace/cockpit/config.ru
+	"	1	0
+
+> ~/workspace/cockpit/app/controllers/api/v1/dashlets_controller.rb
+	"	65	11
+	^	62	34
+	.	65	0
+	+	21	32
+	+	21	63
+	+	13	40
+	+	20	17
+	+	32	0
+	+	21	0
+	+	14	16
+	+	15	16
+	+	15	17
+	+	16	16
+	+	16	17
+	+	15	18
+	+	15	184
+	+	15	0
+	+	16	0
+	+	16	19
+	+	16	51
+	+	16	50
+	+	19	0
+	+	16	0
+	+	19	0
+	+	17	51
+	+	15	24
+	+	17	26
+	+	33	0
+	+	5	20
+	+	11	22
+	+	6	27
+	+	16	0
+	+	19	0
+	+	18	42
+	+	19	29
+	+	16	80
+	+	18	49
+	+	16	0
+	+	19	0
+	+	5	0
+	+	4	0
+	+	32	27
+	+	32	25
+	+	23	0
+	+	32	0
+	+	23	0
+	+	23	158
+	+	25	18
+	+	23	17
+	+	26	59
+	+	28	66
+	+	29	50
+	+	32	0
+	+	25	0
+	+	17	18
+	+	24	17
+	+	25	0
+	+	28	63
+	+	71	0
+	+	72	11
+	+	31	54
+	+	72	0
+	+	31	62
+	+	30	18
+	+	32	10
+	+	28	56
+	+	32	0
+	+	29	49
+	+	53	34
+	+	54	12
+	+	53	34
+	+	54	39
+	+	66	14
+	+	60	66
+	+	55	46
+	+	56	52
+	+	60	80
+	+	57	56
+	+	60	0
+	+	57	70
+	+	60	104
+	+	58	51
+	+	61	24
+	+	60	22
+	+	59	13
+	+	60	28
+	+	55	43
+	+	60	0
+	+	66	13
+	+	61	84
+	+	62	68
+	+	63	41
+	+	64	56
+	+	65	75
+	+	61	0
+	+	65	0
+	+	66	10
+	+	65	53
+	+	61	33
+	+	62	33
+	+	66	0
+	+	67	0
+	+	65	0
+
+> ~/workspace/cockpit/app/models/dashlet.rb
+	"	2	30
+	^	5	18
+	.	5	17
+	+	2	30
+	+	5	17
+
+> ~/workspace/whopper/config/routes.rb
+	"	20	65
+	^	12	27
+	.	21	0
+	+	23	0
+	+	2	0
+	+	21	7
+	+	21	6
+	+	21	6
+	+	8	15
+	+	9	40
+	+	10	48
+	+	11	38
+	+	21	0
+	+	5	0
+	+	5	54
+	+	10	48
+	+	14	5
+	+	7	49
+	+	15	36
+	+	14	0
+	+	21	0
+	+	16	0
+	+	15	6
+	+	5	0
+	+	17	0
+	+	16	54
+	+	10	0
+	+	18	0
+	+	7	0
+	+	19	0
+	+	20	65
+	+	12	26
+	+	11	0
+	+	13	0
+	+	21	0
+
+> ~/workspace/whopper/app/controllers/api/v1/metrics_controller.rb
+	"	6	46
+	^	6	47
+	.	6	46
+	+	1	21
+	+	11	0
+	+	10	4
+	+	10	0
+	+	10	33
+	+	10	5
+	+	10	0
+	+	10	37
+	+	9	6
+	+	5	5
+	+	10	0
+	+	4	71
+	+	5	0
+	+	6	63
+	+	8	61
+	+	10	22
+	+	11	17
+	+	6	46
+
+> ~/workspace/whopper/app/controllers/api/v1/media_views.rb
+	"	15	2
+	^	7	60
+	.	7	59
+	+	14	0
+	+	11	0
+	+	3	11
+	+	11	5
+	+	11	43
+	+	2	0
+	+	1	19
+	+	11	23
+	+	4	14
+	+	15	3
+	+	4	21
+	+	11	6
+	+	11	8
+	+	11	71
+	+	11	3
+	+	11	0
+	+	11	0
+	+	11	0
+	+	11	63
+	+	4	24
+	+	10	8
+	+	6	28
+	+	11	0
+	+	8	9
+	+	8	74
+	+	5	92
+	+	7	83
+	+	4	0
+	+	11	0
+	+	10	2
+	+	9	0
+	+	10	3
+	+	8	3
+	+	6	3
+	+	4	3
+	+	5	3
+	+	7	3
+	+	5	59
+	+	7	59
+
+> ~/workspace/whopper/app/controllers/api/v1/impressions_controller.rb
+	"	22	6
+	^	19	59
+	.	19	48
+	+	4	0
+	+	14	1
+	+	15	0
+	+	17	58
+	+	19	48
+
+> ~/workspace/whopper/app/controllers/api/v1/visitors_controller.rb
+	"	31	55
+	^	31	56
+	.	31	48
+	+	1	32
+	+	25	0
+	+	16	2
+	+	15	11
+	+	16	3
+	+	16	0
+	+	18	0
+	+	17	68
+	+	19	109
+	+	17	70
+	+	26	0
+	+	27	0
+	+	29	55
+	+	31	48
+
+> ~/workspace/cockpit/app/controllers/dashlets_controller.rb
+	"	1	0
+	^	6	93
+	.	6	66
+	+	7	4
+	+	3	32
+	+	7	17
+	+	4	14
+	+	7	23
+	+	3	38
+	+	7	0
+	+	5	40
+	+	6	66
+
+> ~/workspace/whopper/.git/COMMIT_EDITMSG
+	"	1	29
+	^	1	30
+	.	1	29
+	+	1	29
+
+> ~/workspace/WCRedesign/.gitignore
+	"	6	12
+	^	6	13
+	.	6	12
+	+	6	12
+
+> ~/workspace/WCRedesign/.git/COMMIT_EDITMSG
+	"	1	0
+	^	1	0
+	.	1	0
+	+	2	0
+	+	1	0
+
+> ~/workspace/WCRedesign/public/css/packs.css
+	"	259	19
+	.	259	19
+	+	263	15
+	+	267	0
+	+	266	25
+	+	265	18
+	+	258	19
+	+	265	15
+	+	266	26
+	+	271	21
+	+	270	18
+	+	271	21
+	+	260	0
+	+	259	19
+
+> ~/workspace/hasten/config/database.yml
+	"	7	0
+
+> ~/workspace/hasten/.env
+	"	1	18
+	^	1	19
+	.	1	18
+	+	1	18
+
+> ~/workspace/cockpit/app/assets/javascripts/views/charts/bar-chart-view.js
+	"	7	1
+
+> ~/workspace/cockpit/app/assets/javascripts/views/dashlets/word-of-mouth.js
+	"	25	23
+	^	36	32
+	.	36	31
+	+	42	0
+	+	47	45
+	+	4	0
+	+	7	0
+	+	4	25
+	+	5	3
+	+	7	12
+	+	5	66
+	+	6	34
+	+	7	5
+	+	8	4
+	+	9	4
+	+	10	4
+	+	7	0
+	+	6	5
+	+	5	4
+	+	7	4
+	+	8	4
+	+	9	4
+	+	10	4
+	+	42	17
+	+	42	22
+	+	42	66
+	+	42	39
+	+	42	67
+	+	43	4
+	+	42	11
+	+	43	0
+	+	42	0
+	+	42	49
+	+	66	4
+	+	58	14
+	+	60	45
+	+	61	5
+	+	60	36
+	+	42	0
+	+	61	5
+	+	62	4
+	+	63	4
+	+	64	3
+	+	41	49
+	+	65	25
+	+	49	50
+	+	50	33
+	+	49	18
+	+	37	4
+	+	36	0
+	+	25	24
+	+	29	4
+	+	27	28
+	+	35	5
+	+	26	20
+	+	28	25
+	+	30	22
+	+	32	0
+	+	33	0
+	+	32	21
+	+	35	0
+	+	34	0
+	+	35	0
+	+	34	29
+	+	24	17
+	+	23	7
+	+	36	14
+	+	28	25
+	+	36	32
+	+	22	66
+	+	36	31
+
+> ~/workspace/cockpit/app/assets/javascripts/templates/dashlets/word-of-mouth.hbs
+	"	15	9
+	^	6	14
+	.	6	13
+	+	6	13
+
+> ~/workspace/auth/app/views/layouts/application.html.erb
+	"	11	0
+
+> ~/workspace/auth/app/views/shared/_header.html.erb
+	"	36	24
+
+> ~/workspace/cockpit/app/views/dashboard/index.html.erb
+	"	1	0
+
+> ~/workspace/cockpit/app/views/dashboards/index.html.haml
 	"	1	0
 	.	1	0
 	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
 
-> ~/workspace/portal/spec/requests/milyoni_spec.rb
-	"	6	24
-	^	6	25
-	.	6	24
-	+	3	16
-	+	4	23
-	+	5	19
-	+	6	17
-	+	5	26
-	+	12	6
-	+	6	24
-
-> ~/workspace/portal/app/views/milyoni/new.html.erb
-	"	18	2
-	^	2	33
-	.	18	0
-	+	1	20
-	+	19	8
-	+	4	0
-	+	19	27
-	+	4	24
-	+	5	28
-	+	6	0
-	+	4	16
-	+	5	26
-	+	6	27
-	+	7	33
-	+	6	16
-	+	8	26
-	+	9	31
-	+	10	0
-	+	12	0
-	+	14	0
-	+	17	0
-	+	17	0
-	+	10	24
-	+	11	22
-	+	12	24
-	+	13	22
-	+	14	21
-	+	15	22
-	+	17	87
-	+	16	30
-	+	17	90
-	+	17	88
-	+	3	28
-	+	3	0
-	+	2	41
-	+	2	21
-	+	2	0
-	+	18	0
-
-> ~/workspace/portal/app/views/portal/show.html.erb
-	"	1	0
-
-> ~/workspace/portal/app/views/milyoni/index.html.erb
-	"	6	0
-	^	7	30
-	.	7	29
-	+	1	29
-	+	20	8
-	+	9	28
-	+	17	10
-	+	9	40
-	+	10	3
-	+	8	5
-	+	18	7
-	+	10	57
-	+	16	7
-	+	17	0
-	+	15	8
-	+	14	14
-	+	13	26
-	+	9	4
-	+	13	33
-	+	10	55
-	+	10	0
-	+	9	4
-	+	4	27
-	+	19	31
-	+	4	0
-	+	6	3
-	+	16	0
-	+	5	20
-	+	6	34
-	+	5	0
-	+	6	15
-	+	7	0
-	+	8	0
-	+	7	29
-
-> ~/workspace/second_chance/db/seeds.rb
-	"	18	112
-	^	18	113
-	.	18	112
-	+	21	2
-	+	16	0
-	+	14	4
-	+	16	1
-	+	19	4
-	+	16	8
-	+	20	6
-	+	18	117
-	+	17	31
-	+	18	98
-	+	17	26
-	+	18	112
-
-> ~/workspace/second_chance/.git/MERGE_MSG
-	"	1	0
-
-> ~/workspace/second_chance/.git/COMMIT_EDITMSG
+> ~/workspace/cockpit/ControlP
 	"	2	0
-	^	2	0
 	.	2	0
-	+	1	18
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
 	+	2	0
 
-> ~/workspace/second_chance/Gemfile
-	"	30	13
-	^	30	14
-	.	30	13
-	+	46	2
-	+	45	21
-	+	29	16
-	+	37	2
-	+	37	0
-	+	33	21
-	+	30	13
-
-> ~/workspace/second_chance/app/models/business.rb
-	"	8	0
-	^	11	3
-	.	7	0
-	+	1	15
-	+	10	2
-	+	9	5
-	+	10	0
-	+	8	16
-	+	2	25
-	+	3	24
-	+	11	2
-	+	7	0
-
-> ~/workspace/second_chance/db/schema.rb
-	"	28	0
-
-> ~/workspace/second_chance/config/database.yml
-	"	22	19
-	^	22	22
-	.	22	19
-	+	22	19
-	+	42	0
-	+	23	0
-	+	22	19
-
-> ~/workspace/second_chance/db/migrate/20140209170936_create_businesses_table.rb
-	"	11	20
-	^	11	24
-	.	11	23
-	+	3	28
-	+	11	18
-	+	10	22
-	+	11	23
-
-> ~/workspace/second_chance/config/geocoder.rb
-	"	3	0
-	^	3	1
-	.	3	0
-	+	4	0
-	+	5	0
-	+	3	0
-
-> ~/workspace/second_chance/config/initializers/geocoder.rb
-	"	2	17
-	^	2	18
-	.	2	17
-	+	3	22
-	+	2	17
-
-> ~/workspace/second_chance/app/controllers/home_controller.rb
-	"	1	21
-	^	3	4
-	.	1	21
-	+	6	2
-	+	4	4
-	+	3	3
-	+	1	21
-
-> ~/workspace/second_chance/app/views/layouts/application.html.erb
-	"	8	0
-	^	7	99
-	.	9	0
-	+	9	84
-	+	8	0
-	+	9	10
-	+	9	58
-	+	11	0
-	+	7	98
-	+	9	0
-
-> ~/workspace/second_chance/app/views/home/index.html.erb
-	"	24	191
-	^	24	192
-	.	24	191
-	+	1	13
-	+	1	61
-	+	34	0
-	+	1	0
-	+	6	9
-	+	6	0
-	+	6	14
-	+	6	1
-	+	1	55
-	+	6	0
-	+	1	0
-	+	6	10
-	+	6	0
-	+	1	20
-	+	4	2
-	+	34	0
-	+	6	0
-	+	33	0
-	+	34	0
-	+	5	19
-	+	10	0
-	+	8	20
-	+	8	74
-	+	12	0
-	+	30	0
-	+	5	21
-	+	30	0
+> ~/workspace/cockpit/app/assets/stylesheets/application.scss
+	"	42	0
+	^	35	2
+	.	35	0
+	+	40	4
+	+	41	2
+	+	39	15
+	+	38	0
+	+	41	0
+	+	39	17
+	+	34	1
 	+	35	0
-	+	13	26
-	+	18	14
-	+	15	43
-	+	13	92
-	+	15	78
-	+	20	24
-	+	29	2
-	+	28	1
-	+	24	110
-	+	25	15
-	+	28	1
-	+	27	25
-	+	22	4
-	+	23	2
-	+	24	2
-	+	25	2
-	+	26	2
-	+	27	2
+
+> ~/workspace/hasten/app/controllers/member_actions_controller.rb
+	"	1	0
+	^	18	27
+	.	18	26
+	+	1	18
+	+	4	105
+	+	4	63
+	+	4	79
+	+	12	16
 	+	22	0
-	+	23	0
-	+	31	0
-	+	9	22
-	+	25	18
-	+	24	191
-	a	19	0
-
-> ~/workspace/second_chance/app/assets/stylesheets/application.css
-	"	17	0
-	^	17	1
-	.	17	0
 	+	22	0
-	+	29	0
-	+	20	1
-	+	27	0
-	+	24	0
-	+	21	14
-	+	16	15
-	+	17	0
-
-> ~/workspace/second_chance/app/assets/stylesheets/leaflet.js
-	"	9	28524
-	^	9	28525
-	.	9	28522
-	+	9	28522
-
-> ~/workspace/second_chance/app/assets/javascripts/application.js
-	"	16	16
-	^	16	19
-	.	16	18
-	+	16	18
-
-> ~/workspace/second_chance/app/assets/javascripts/leaflet.js
-	"	9	28523
-	^	9	28526
-	.	9	28523
+	+	12	112
+	+	21	4
+	+	2	0
+	+	9	4
 	+	10	0
-	+	9	28523
+	+	8	83
+	+	21	6
+	+	12	20
+	+	21	0
+	+	18	43
+	+	13	0
+	+	14	0
+	+	15	0
+	+	16	1
+	+	18	36
+	+	19	2
+	+	15	1
+	+	14	1
+	+	13	20
+	+	15	26
+	+	14	30
+	+	17	60
+	+	18	26
 
-> ~/workspace/second_chance/app/views/home/index.html
-	"	13	59
-	^	13	60
-	.	13	60
-	+	13	67
-	+	61	37
-	+	61	18
-	+	61	0
-	+	61	0
-	+	61	0
-	+	61	0
-	+	62	0
-	+	13	60
+> ~/workspace/hasten/db/schema.rb
+	"	60	0
 
-> ~/workspace/second_chance/config/routes.rb
-	"	2	22
-	^	2	23
-	.	2	23
-	+	2	23
+> ~/workspace/hasten/app/controllers/family_members_controller.rb
+	"	15	26
+	^	13	21
+	.	13	20
+	+	1	18
+	+	25	0
+	+	24	0
+	+	4	67
+	+	8	68
+	+	12	89
+	+	13	20
 
-> ~/workspace/portal/app/controllers/portal_controller.rb
-	"	10	30
+> ~/workspace/cockpit/app/assets/javascripts/cockpit.js
+	"	81	41
+	^	81	42
+	.	81	41
+	+	80	27
+	+	81	41
 
-> ~/workspace/portal/config/routes.rb
+> ~/workspace/cockpit/config/routes.rb
+	"	11	0
+	^	18	39
+	.	18	38
+	+	19	0
+	+	16	0
+	+	19	0
+	+	17	38
+	+	17	0
+	+	19	0
+	+	18	38
+
+> ~/workspace/whopper/ControlP
+	"	2	0
+	.	2	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	1	0
+	+	2	0
+
+> ~/workspace/whopper/app/controllers/api/v1/promotions_controller.rb
+	"	1	0
+
+> ~/workspace/whopper/app/controllers/api/v1/woms_controller.rb
+	"	6	112
+	^	6	113
+	.	6	112
+	+	13	0
+	+	12	0
+	+	6	112
+
+> ~/workspace/auth/app/assets/stylesheets/application.css.scss
+	"	1	0
+
+> ~/workspace/auth/app/assets/stylesheets/layout.css.scss
+	"	168	0
+
+> ~/workspace/auth/db/seeds.rb
+	"	1	0
+
+> ~/workspace/hasten/config/routes.rb
+	"	8	2
+	^	6	32
+	.	8	0
+	+	8	4
+	+	8	3
+	+	7	6
+	+	6	31
+	+	8	0
+
+> ~/workspace/cockpit/app/serializers/value_serializer.rb
+	"	5	31
+	^	5	32
+	.	5	31
+	+	6	4
+	+	5	31
+
+> ~/workspace/cockpit/app/serializers/chart_serializer.rb
 	"	3	0
-	^	7	0
-	.	7	0
-	+	4	44
+	^	9	55
+	.	9	54
+	+	11	0
+	+	6	4
+	+	5	27
+	+	8	0
 	+	7	0
+	+	8	11
+	+	10	22
+	+	6	0
+	+	5	55
+	+	9	0
+	+	10	0
+	+	9	54
 
-> ~/workspace/portal/Gemfile
-	"	18	2
-	.	18	0
-	+	18	16
-	+	19	13
-	+	19	11
-	+	19	0
-	+	19	0
-	+	18	0
+> ~/workspace/cockpit/app/serializers/dashlet_serializer.rb
+	"	6	16
+	^	6	17
+	.	6	17
+	+	2	26
+	+	5	17
+	+	4	17
+	+	6	17
+
+> ~/workspace/hasten/Gemfile
+	"	6	15
+	^	6	16
+	.	6	15
+	+	17	17
+	+	18	19
+	+	20	15
+	+	22	19
+	+	5	11
+	+	6	15
+
+> ~/workspace/.env
+	"	1	18
+	^	1	19
+	.	1	18
+	+	2	0
+	+	2	0
+	+	2	0
+	+	1	18
+
+> ~/workspace/quickly.rb
+	"	57	0
+	^	32	16
+	.	32	15
+	+	83	0
+	+	84	0
+	+	83	0
+	+	26	52
+	+	31	18
+	+	32	15
 
 > ~/workspace/Gemfile
-	"	1	0
+	"	1	21
+	^	34	22
+	.	34	21
+	+	3	10
+	+	5	0
+	+	6	0
+	+	35	2
+	+	34	21
 
-> ~/workspace/gozer/app/controllers/application_controller.rb
-	"	15	27
-	^	13	6
-	.	14	0
-	+	15	65
-	+	15	4
-	+	15	4
-	+	15	5
-	+	15	3
-	+	15	15
-	+	13	5
-	+	15	0
-	+	15	0
-	+	16	0
-	+	14	0
-
-> ~/workspace/gozer/ControlP
-	"	1	0
-	.	2	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	1	0
-	+	2	0
-
-> ~/workspace/gozer/app/controllers/assortments_controller.rb
-	"	14	28
-	^	14	29
-	.	14	28
-	+	3	0
-	+	3	56
-	+	15	5
-	+	14	49
-	+	13	6
-	+	8	36
-	+	9	30
-	+	12	5
-	+	10	50
-	+	10	43
-	+	12	0
-	+	6	43
-	+	7	47
-	+	11	25
-	+	14	28
-
-> ~/workspace/gozer/config/routes.rb
-	"	10	44
-	^	10	45
-	.	10	44
-	+	10	44
-
-> ~/workspace/portal/spec/requests/portal_spec.rb
-	"	1	0
-
-> ~/workspace/interview-questions/.git/COMMIT_EDITMSG
-	"	2	0
-	^	2	0
-	.	1	19
-	+	1	19
-
-> ~/workspace/interview-questions/README
-	"	92	22
-	^	92	23
-	.	92	22
+> ~/workspace/database.yml
+	"	7	4
+	.	16	0
 	+	8	0
-	+	38	0
-	+	75	0
-	+	38	0
-	+	38	0
-	+	74	0
-	+	75	0
-	+	86	0
-	+	73	0
-	+	75	140
-	+	77	5
-	+	86	0
-	+	81	8
-	+	78	26
-	+	80	27
-	+	81	0
-	+	82	28
-	+	81	15
-	+	82	20
-	+	83	9
-	+	84	16
-	+	75	37
-	+	112	0
-	+	100	0
-	+	87	0
-	+	78	0
-	+	99	0
-	+	98	2
-	+	94	1
-	+	97	45
-	+	91	2
-	+	92	22
+	+	16	0
 
-> ~/workspace/interview-questions/readme
-	"	51	21
-	^	51	22
-	.	51	21
-	+	15	2
-	+	22	0
-	+	28	3
-	+	26	10
-	+	25	12
-	+	35	14
-	+	34	16
-	+	33	17
-	+	51	21
+> ~/workspace/gozer/config/database.yml
+	"	1	0
 
-> ~/workspace/octane/db/migrate/20131226201917_create_api_keys.rb
-	"	10	0
-	^	6	23
-	.	6	22
-	+	10	6
-	+	11	8
-	+	10	23
-	+	6	22
+> ~/workspace/suggestotron/config/routes.rb
+	"	10	80
+	^	5	19
+	.	5	18
+	+	2	20
+	+	8	3
+	+	7	4
+	+	6	6
+	+	5	18
 
-> /usr/local/etc/nginx/nginx.conf
-	"	118	0
-	^	118	0
-	.	117	1
-	+	119	0
-	+	117	1
+> ~/workspace/suggestotron/app/controllers/topics_controller.rb
+	"	63	0
+	^	67	28
+	.	67	27
+	+	68	4
+	+	67	27
 
-> /private/etc/hosts
-	"	14	28
-	^	14	29
-	.	14	28
-	+	15	1
-	+	14	28
+> ~/workspace/suggestotron/app/models/topic.rb
+	"	2	2
+	^	2	38
+	.	2	37
+	+	2	37
 
-> ~/workspace/gozer/app/models/api_key.rb
+> ~/workspace/suggestotron/app/models/vote.rb
+	"	3	2
+	^	2	19
+	.	2	18
+	+	2	18
+
+> ~/workspace/suggestotron/app/views/topics/index.html.erb
+	"	18	12
+	^	18	12
+	.	18	12
+	+	17	60
+	+	18	12
+
+> ~/workspace/whopper/app/controllers/api/v1/interactions_controller.rb
+	"	11	45
+	^	11	46
+	.	11	45
+	+	7	10
+	+	9	7
+	+	8	0
+	+	10	32
+	+	10	0
+	+	14	0
+	+	12	0
+	+	11	45
+
+> ~/workspace/whopper/spec/requests/api/v1/impressions_spec.rb
+	"	34	0
+	^	37	39
+	.	37	38
+	+	37	38
+
+> ~/workspace/whopper/api-todos.txt
 	"	4	0
-	^	4	0
-	.	4	0
-	+	10	27
-	+	10	5
-	+	13	10
-	+	13	8
-	+	13	7
-	+	10	0
-	+	13	4
-	+	10	4
-	+	13	4
-	+	10	42
-	+	13	4
-	+	14	0
-	+	13	1
-	+	10	66
-	+	5	0
-	+	11	0
-	+	5	0
-	+	3	0
-	+	8	65
-	+	3	34
-	+	4	0
+	^	18	0
+	.	18	0
+	+	1	0
+	+	1	27
+	+	13	3
+	+	11	12
+	+	13	3
+	+	12	10
+	+	13	3
+	+	30	0
+	+	9	44
+	+	13	37
+	+	14	55
+	+	11	42
+	+	29	26
+	+	17	0
+	+	20	0
+	+	18	0
 
-> ~/workspace/gozer/spec/requests/producers_spec.rb
-	"	196	40
-	^	139	41
-	.	139	40
-	+	55	0
-	+	54	0
-	+	67	0
-	+	65	0
-	+	55	64
-	+	61	84
-	+	63	35
-	+	62	38
-	+	64	6
-	+	65	0
-	+	64	5
-	+	140	0
-	+	138	78
-	+	139	8
-	+	138	6
-	+	139	40
-
-> ~/workspace/gozer/.git/MERGE_MSG
-	"	1	0
-
-> ~/workspace/gozer/.git/COMMIT_EDITMSG
-	"	1	0
-	^	1	23
-	.	1	22
-	+	1	22
-
-> ~/workspace/gozer/spec/requests/offers_spec.rb
-	"	8	38
-	^	8	39
-	.	8	38
-	+	5	18
-	+	5	18
-	+	5	38
-	+	5	42
-	+	64	33
-	+	5	4
-	+	64	35
-	+	5	22
-	+	5	20
-	+	5	38
-	+	5	31
-	+	79	6
-	+	87	6
-	+	106	5
-	+	88	0
-	+	80	0
-	+	106	5
-	+	122	6
-	+	107	0
-	+	106	5
-	+	96	46
-	+	122	7
-	+	137	7
-	+	147	7
-	+	157	7
-	+	165	7
-	+	166	0
-	+	165	6
-	+	158	0
-	+	157	6
-	+	148	0
-	+	147	6
-	+	136	6
-	+	137	0
-	+	123	0
-	+	122	6
-	+	5	0
-	+	5	32
-	+	64	0
-	+	5	0
-	+	5	0
-	+	8	57
-	+	96	48
-	+	7	32
-	+	8	38
-
-> ~/workspace/gozer/spec/support/request_helpers.rb
+> ~/workspace/whopper/app/assets/javascripts/application.js
 	"	12	0
-	^	14	7
-	.	14	0
-	+	14	0
+	.	12	0
+	+	13	0
+	+	12	0
 
-> ~/workspace/gozer/spec/spec_helper.rb
-	"	21	0
+> ~/workspace/whopper/config/environments/production.rb
+	"	36	2
+	^	26	4
+	.	26	3
+	+	26	3
 
-> ~/workspace/gozer/spec/factories/api_key_factory.rb
-	"	5	2
-	^	5	3
-	.	5	0
-	+	5	0
+> ~/workspace/whopper/app/models/impression.rb
+	"	9	2
+	.	9	0
+	+	9	0
 
-> ~/workspace/gozer/spec/factories/producer_factory.rb
-	"	1	0
+> ~/workspace/bridge_troll/spec/features/event_organizer_dashboard_request_spec.rb
+	"	55	4
+	.	56	0
+	+	56	0
 
-> ~/workspace/gozer/db/migrate/20140205192836_add_origin_to_api_keys.rb
-	"	3	0
+> ~/workspace/bridge_troll/spec/features/event_checkiner_request_spec.rb
+	"	12	6
 
-> ~/workspace/gozer/db/seeds.rb
-	"	93	0
-	^	94	30
-	.	94	29
-	+	95	0
-	+	94	49
-	+	8	1
-	+	14	2
-	+	94	29
+> ~/workspace/bridge_troll/app/controllers/events/attendees_controller.rb
+	"	25	0
 
-> ~/workspace/gozer/app/controllers/producers_controller.rb
-	"	3	0
-	^	2	4
-	.	2	2
-	+	4	0
-	+	3	56
-	+	69	0
-	+	69	0
-	+	3	0
-	+	2	2
+> ~/workspace/bridge_troll/app/models/event.rb
+	"	16	0
 
-> ~/workspace/gozer/app/controllers/features_controller.rb
-	"	1	0
-
-> ~/workspace/gozer/app/controllers/offers_controller.rb
-	"	23	2
-	^	3	0
-	.	3	0
-	+	3	15
-	+	3	0
-
-> ~/workspace/gozer/config/application.rb
-	"	21	4
-	^	21	5
-	.	21	4
-	+	21	7
-	+	15	3
-	+	18	81
-	+	19	8
-	+	18	127
-	+	15	4
-	+	16	4
-	+	17	4
-	+	18	4
-	+	19	4
-	+	20	4
-	+	21	4
-	+	15	4
-	+	16	4
-	+	17	4
-	+	18	4
-	+	19	4
-	+	20	4
-	+	21	4
-
-> ~/workspace/gozer/Gemfile
-	"	5	0
-	^	5	45
-	.	5	0
-	+	20	14
-	+	5	0
-
-> ~/workspace/gozer/db/schema.rb
-	"	24	6
-
-> ~/workspace/gozer/db/migrate/20140204234615_create_api_keys_table.rb
-	"	8	51
-	^	8	52
-	.	8	51
-	+	3	26
-	+	8	37
-	+	5	7
-	+	8	51
-
-> ~/workspace/gozer/db/migrate/20140205000125_add_columns_to_api_key.rb
-	"	1	0
-	^	2	12
-	.	2	12
-	+	2	12
-
-> ~/workspace/gozer/app/models/apikey.rb
-	"	2	0
-	^	4	2
-	.	2	1
-	+	1	12
-	+	11	0
-	+	2	39
-	+	10	0
-	+	4	1
-	+	2	1
+> ~/workspace/bridge_troll/app/models/rsvp.rb
+	"	75	0
